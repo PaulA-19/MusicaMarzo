@@ -20,12 +20,14 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.JTable;
 
 public class VistaBajarSubirNotas extends JFrame implements Comun {
 
 	private JPanel contentPane;
 	VistaBajarSubirNotas actual;
 	ControllerBajarSubirNotas c;
+	private JTable table;
 
 	/**
 	 * Create the frame.
@@ -191,5 +193,20 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 		panel_1.add(centroInterno, BorderLayout.CENTER);
 		centroInterno.setBackground(c4);
 		centroInterno.setLayout(new GridLayout(4, 0, 10, 10));
+		
+		JPanel panel_3 = new JPanel();
+		centroInterno.add(panel_3);
+		
+		JPanel panel_5 = new JPanel();
+		centroInterno.add(panel_5);
+		
+		JPanel panel_6 = new JPanel();
+		centroInterno.add(panel_6);
+		
+		table = new JTable();
+		panel_6.add(table);
+		
+		JPanel panel_4 = new JPanel();
+		centroInterno.add(panel_4);
 	}
 }
