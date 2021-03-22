@@ -2,32 +2,30 @@ package BajarSubirNotas.vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-
-import BajarSubirNotas.controller.ControllerBajarSubirNotas;
-import datos.Comun;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+
+import BajarSubirNotas.controller.ControllerBajarSubirNotas;
+import datos.Comun;
 
 public class VistaBajarSubirNotas extends JFrame implements Comun {
 
 	private JPanel contentPane;
 	VistaBajarSubirNotas actual;
 	ControllerBajarSubirNotas c;
-	private JTable table;
+	public JTextField textEntrada;
+	public JTextArea txtrResultado;
+	public JLabel lblErrores;
 
 	/**
 	 * Create the frame.
@@ -105,6 +103,11 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 				btnSubirUnSemi.setBackground(c2);
 				btnSubirUnSemi.setBackground(c3);
 				btnSubirUnSemi.setForeground(c1);
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				c.validarInputNotas();
 			}
 		});
 		SubirSemiTono.add(btnSubirUnSemi);
@@ -193,20 +196,66 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 		panel_1.add(centroInterno, BorderLayout.CENTER);
 		centroInterno.setBackground(c4);
 		centroInterno.setLayout(new GridLayout(4, 0, 10, 10));
-		
+
+		JPanel ingresar = new JPanel();
+		centroInterno.add(ingresar);
+		ingresar.setLayout(new BorderLayout(0, 0));
+
 		JPanel panel_3 = new JPanel();
-		centroInterno.add(panel_3);
-		
+		ingresar.add(panel_3, BorderLayout.NORTH);
+		panel_3.setLayout(new GridLayout(0, 2, 5, 0));
+
+		JLabel lblIngresseLasNotas = new JLabel("Ingresse las notas");
+		lblIngresseLasNotas.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblIngresseLasNotas);
+
+		JLabel lblSeparadasPorUn = new JLabel("SEPARADAS POR UN \";\"");
+		lblSeparadasPorUn.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblSeparadasPorUn);
+
+		JPanel panel_7 = new JPanel();
+		ingresar.add(panel_7, BorderLayout.CENTER);
+		panel_7.setLayout(new BorderLayout(0, 0));
+
+		textEntrada = new JTextField();
+		panel_7.add(textEntrada);
+		textEntrada.setColumns(10);
+
 		JPanel panel_5 = new JPanel();
 		centroInterno.add(panel_5);
-		
+		panel_5.setLayout(new BorderLayout(0, 0));
+
+		lblErrores = new JLabel("ERRORES");
+		lblErrores.setVisible(false);
+		panel_5.add(lblErrores, BorderLayout.CENTER);
+
 		JPanel panel_6 = new JPanel();
 		centroInterno.add(panel_6);
-		
-		table = new JTable();
-		panel_6.add(table);
-		
+		panel_6.setLayout(new BorderLayout(0, 0));
+
+		txtrResultado = new JTextArea();
+		txtrResultado.setEditable(false);
+		panel_6.add(txtrResultado);
+
 		JPanel panel_4 = new JPanel();
 		centroInterno.add(panel_4);
+
+		JButton btnMasopciones = new JButton("Más Opciones");
+		btnMasopciones.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				c.masOpciones();
+			}
+		});
+		panel_4.add(btnMasopciones);
+
+		JButton btnImprimir = new JButton("imprimir");
+		btnImprimir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				c.imprimir();
+			}
+		});
+		panel_4.add(btnImprimir);
 	}
 }
