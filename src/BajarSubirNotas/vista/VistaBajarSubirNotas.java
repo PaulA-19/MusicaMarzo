@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import BajarSubirNotas.controller.ControllerBajarSubirNotas;
 import datos.Comun;
+import java.awt.Scrollbar;
 
 public class VistaBajarSubirNotas extends JFrame implements Comun {
 
@@ -107,6 +108,7 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				limpiarError();
 				c.validarInputNotas();
 			}
 		});
@@ -257,5 +259,10 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 			}
 		});
 		panel_4.add(btnImprimir);
+	}
+
+	protected void limpiarError() {
+		lblErrores.setText("");
+		lblErrores.setVisible(false);
 	}
 }

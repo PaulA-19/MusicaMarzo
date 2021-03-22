@@ -8,11 +8,14 @@ import datos.Comun;
 
 public class ModelBajarSubirNotas {
 	public String[] listaNotas;
-	public ArrayList<String> notasMalas = new ArrayList<String>();
-	public ArrayList<String> notasBuenas = new ArrayList<String>();
+	public ArrayList<String> notasMalas;
+	public ArrayList<String> notasBuenas;
 
 	public boolean validarNotas(String string) throws Exception {
+		notasMalas = new ArrayList<String>();
+		notasBuenas = new ArrayList<String>();
 
+		int can = 0;
 		boolean v = true;
 		// TODO: handle exception
 		listaNotas = string.split(";");
@@ -21,6 +24,7 @@ public class ModelBajarSubirNotas {
 			System.out.println(listaNotas[i]);
 			if (listaNotas[i].equalsIgnoreCase("")) {
 				System.out.println("Vacio - false");
+				can++;
 				continue;
 			}
 			if (!isNote(listaNotas[i])) {
@@ -32,6 +36,9 @@ public class ModelBajarSubirNotas {
 				continue;
 			}
 
+		}
+		if (can == listaNotas.length) {
+			return false;
 		}
 
 		return v;
