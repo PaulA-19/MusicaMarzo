@@ -17,8 +17,9 @@ public class ModelBajarSubirNotas {
 
 		int can = 0;
 		boolean v = true;
-		// TODO: handle exception
+
 		listaNotas = string.split(";");
+
 		for (int i = 0; i < listaNotas.length; i++) {
 			System.out.println("----------------------");
 			System.out.println(listaNotas[i]);

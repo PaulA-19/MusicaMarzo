@@ -17,7 +17,6 @@ import javax.swing.border.EmptyBorder;
 
 import BajarSubirNotas.controller.ControllerBajarSubirNotas;
 import datos.Comun;
-import java.awt.Scrollbar;
 
 public class VistaBajarSubirNotas extends JFrame implements Comun {
 
@@ -26,7 +25,7 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 	ControllerBajarSubirNotas c;
 	public JTextField textEntrada;
 	public JTextArea txtrResultado;
-	public JLabel lblErrores;
+	public JLabel lblNotaserrores, lblErrores;
 
 	/**
 	 * Create the frame.
@@ -37,7 +36,7 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 		c.setVista(actual);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		setBounds(100, 100, 594, 435);
-		setSize(800, 435);
+		setSize(950, 450);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(c1);
@@ -126,6 +125,13 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 		SubirSemiTono_1.add(lblSubeUnSemitono_1);
 
 		JButton btnSubirUnSemi_1 = new JButton("BAJAR UN SEMI TONO");
+		btnSubirUnSemi_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				limpiarError();
+				c.validarInputNotas();
+			}
+		});
 		btnSubirUnSemi_1.setForeground(new Color(66, 72, 116));
 		btnSubirUnSemi_1.setBackground(new Color(220, 214, 247));
 		SubirSemiTono_1.add(btnSubirUnSemi_1);
@@ -142,6 +148,13 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 		SubirSemiTono_2.add(lblSubeUnSemitono_2);
 
 		JButton btnSubirUnSemi_2 = new JButton("SUBIR UN SEMI TONO");
+		btnSubirUnSemi_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				limpiarError();
+				c.validarInputNotas();
+			}
+		});
 		btnSubirUnSemi_2.setForeground(new Color(66, 72, 116));
 		btnSubirUnSemi_2.setBackground(new Color(220, 214, 247));
 		SubirSemiTono_2.add(btnSubirUnSemi_2);
@@ -158,6 +171,13 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 		SubirSemiTono_3.add(lblSubeUnSemitono_3);
 
 		JButton btnSubirUnSemi_3 = new JButton("SUBIR UN TONO");
+		btnSubirUnSemi_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				limpiarError();
+				c.validarInputNotas();
+			}
+		});
 		btnSubirUnSemi_3.setForeground(new Color(66, 72, 116));
 		btnSubirUnSemi_3.setBackground(new Color(220, 214, 247));
 		SubirSemiTono_3.add(btnSubirUnSemi_3);
@@ -174,6 +194,13 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 		SubirSemiTono_4.add(lblSubeUnSemitono_4);
 
 		JButton btnSubirUnSemi_4 = new JButton("ELIMINAR");
+		btnSubirUnSemi_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				limpiarError();
+				textEntrada.setText("");
+			}
+		});
 		btnSubirUnSemi_4.setForeground(new Color(66, 72, 116));
 		btnSubirUnSemi_4.setBackground(new Color(220, 214, 247));
 		SubirSemiTono_4.add(btnSubirUnSemi_4);
@@ -227,9 +254,35 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 		centroInterno.add(panel_5);
 		panel_5.setLayout(new BorderLayout(0, 0));
 
-		lblErrores = new JLabel("ERRORES");
-		lblErrores.setVisible(false);
-		panel_5.add(lblErrores, BorderLayout.CENTER);
+		lblErrores = new JLabel("");
+		panel_5.add(lblErrores, BorderLayout.WEST);
+
+		lblNotaserrores = new JLabel("");
+		panel_5.add(lblNotaserrores, BorderLayout.CENTER);
+
+		JPanel panel_8 = new JPanel();
+		panel_5.add(panel_8, BorderLayout.EAST);
+		panel_8.setLayout(new BorderLayout(0, 0));
+
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				limpiarError();
+				textEntrada.setText("");
+			}
+		});
+		panel_8.add(btnLimpiar, BorderLayout.SOUTH);
+
+		JButton btnEliminarMalos = new JButton("<html><center>Eliminar <br>Malas Notas</center></html>");
+		btnEliminarMalos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				c.autollenarFormaCorrecta();
+				limpiarError();
+			}
+		});
+		panel_8.add(btnEliminarMalos, BorderLayout.NORTH);
 
 		JPanel panel_6 = new JPanel();
 		centroInterno.add(panel_6);
@@ -237,6 +290,7 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 
 		txtrResultado = new JTextArea();
 		txtrResultado.setEditable(false);
+
 		panel_6.add(txtrResultado);
 
 		JPanel panel_4 = new JPanel();
@@ -261,8 +315,9 @@ public class VistaBajarSubirNotas extends JFrame implements Comun {
 		panel_4.add(btnImprimir);
 	}
 
-	protected void limpiarError() {
+	public void limpiarError() {
+		lblNotaserrores.setText("");
 		lblErrores.setText("");
-		lblErrores.setVisible(false);
+
 	}
 }
